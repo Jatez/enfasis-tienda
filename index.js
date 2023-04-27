@@ -6,7 +6,7 @@ const tienda = require("./src/routes/tienda");
 const pedido = require("./src/routes/pedido");
 const serverless = require('serverless-http');
 const port = process.env.PORT || 3000;
-
+const sqs = require('./AWSConfig');
 const app = express();
 
 app.use(bodyParser.json());
