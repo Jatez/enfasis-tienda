@@ -5,7 +5,6 @@ const cliente = require("./src/routes/cliente");
 const tienda = require("./src/routes/tienda");
 const pedido = require("./src/routes/pedido");
 const serverless = require('serverless-http');
-const AWS = require('aws-sdk');
 const port = process.env.PORT || 3000;
 
 const app = express();
@@ -15,14 +14,6 @@ app.use(bodyParser.json());
 app.use('/cliente' , cliente)
 app.use('/tienda',tienda)
 app.use('/pedido', pedido)
-
-
-// Configura el cliente de AWS SQS
-const sqs = new AWS.SQS({
-  region: 'us-east-2',
-  accessKeyId: 'AKIAQPIRACLLDBMTRGP5',
-  secretAccessKey: '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'
-});
 
 // Configura el analizador de solicitudes POST
 app.use(bodyParser.urlencoded({ extended: false }));
