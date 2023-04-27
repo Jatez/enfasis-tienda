@@ -1,8 +1,15 @@
 const express = require('express');
 const pool = require('../database');
+const redis = require("redis");
+const redisClient = redis.createClient("enfasistienda.redis.cache.windows.net:6380,password=XtvqshvkOoIxufHWIVoHrgaXgGBiljqdvAzCaLFhoXk=,ssl=True,abortConnect=False");
 const clienteRoute = express.Router();
 clienteRoute.get('/', async (req, res) => {
   const result = await pool.query('SELECT * FROM cliente');
+  redisClient.set('Clientes', JSON.stringify(result.rows), (err, reply) => {
+    if (err) console.log(err);
+    console.log(reply);
+    res.json(result.rows);
+  });
   res.json(result.rows); // Envía los resultados de la consulta como respuesta en formato JSON
 });
 
