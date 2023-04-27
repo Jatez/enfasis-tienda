@@ -1,19 +1,19 @@
 const express = require('express');
 const pool = require('../databaseConfig');
-const redisClient = require('../../redisConfig')
+const redis = require('redis');
+const {host,psswd }= require('../../redisConfig');
+
+const redisClient = redis.createClient({
+    // rediss for TLS
+    url:`rediss://${host}:6380`,
+    password: psswd
+});
 
 const clienteRoute = express.Router()
 
-redisClient.ping(function(err, reply) {
-  if (err) {
-    console.log('Error al conectarse al servidor Redis:', err);
-  } else {
-    console.log('Conexión exitosa al servidor Redis:', reply);
-  }
-});
-
 clienteRoute.get('/', async (req, res) => {
-  
+  await redisClient.connect();
+
   redisClient.get('Clientes',async(err,reply)=> {
     if(reply){
       return res.json(JSON.parse(reply));
@@ -31,7 +31,7 @@ clienteRoute.get('/', async (req, res) => {
   
   
     res.json(result.rows); // Envía los resultados de la consulta como respuesta en formato JSON
-    console.log("funciona");
+    await redisClient.disconnect();
   });
 });
 
