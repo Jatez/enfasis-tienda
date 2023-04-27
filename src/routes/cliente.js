@@ -4,6 +4,13 @@ const redisClient = require('../../redisConfig')
 
 const clienteRoute = express.Router()
 
+redisClient.ping(function(err, reply) {
+  if (err) {
+    console.log('Error al conectarse al servidor Redis:', err);
+  } else {
+    console.log('Conexión exitosa al servidor Redis:', reply);
+  }
+});
 
 clienteRoute.get('/', async (req, res) => {
   
