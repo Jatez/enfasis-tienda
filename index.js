@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const pool = require('./src/database');
+const pool = require('./src/databaseConfig');
 const cliente = require("./src/routes/cliente");
 const tienda = require("./src/routes/tienda");
 const pedido = require("./src/routes/pedido");

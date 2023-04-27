@@ -1,4 +1,4 @@
 node_modules
-redisConfig.js
-AWSConfig.js
-./src/database.js
+/redisConfig.js
+/AWSConfig.js
+/src/databaseConfig.js

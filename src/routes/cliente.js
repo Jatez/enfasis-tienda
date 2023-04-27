@@ -1,5 +1,5 @@
 const express = require('express');
-const pool = require('../database');
+const pool = require('../databaseConfig');
 const redisClient = require('../../redisConfig')
 
 const clienteRoute = express.Router()
