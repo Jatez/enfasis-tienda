@@ -8,13 +8,15 @@ pedidoRoute.get('/',async (req, res) => {
   res.send(result.rows);
 });
 
+
 pedidoRoute.post('/', async (req, res) => {
   const { fk_cliente, fk_tienda } = req.body;
-  const result = await pool.query('INSERT INTO pedido (fk_cliente, fk_tienda ) VALUES ($1, $2) RETURNING id', [fk_cliente, fk_tienda ]);
+  const result = await pool.query('INSERT INTO pedido (fk_cliente, fk_tienda) VALUES ($1, $2) RETURNING id', [fk_cliente, fk_tienda]);
   const id = result.rows[0].id;
   const link = `https://images-pedidos-enfasis.s3.us-east-2.amazonaws.com/Pedido-Gracias.png/${id}`;
   res.send(link);
 });
+
 
 pedidoRoute.put('/:id', async (req, res) => {
   const { fk_cliente, fk_tienda } = req.body;
